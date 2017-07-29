@@ -25,7 +25,6 @@ public class IntervalIdentifier {
   private static final int FIFTH = 7;
   private static final int BASE_NOTE = 5;
   private static final int OCTAVE = 8;
-  private static final int DELAY = 100;
   private static final int OCTAVE_INTERVAL = 12;
 
   // User input used by scanner
@@ -192,7 +191,7 @@ public class IntervalIdentifier {
 
     // Play the interval back to the user
     System.out.println("This interval sounds like this: \n");
-    notePlayer.delayPlay(DELAY, NOTES[note] + BASE_NOTE);
+    notePlayer.play(NOTES[note] + BASE_NOTE);
 
     int newOctave = BASE_NOTE + octaveCounter;
 
@@ -251,7 +250,7 @@ public class IntervalIdentifier {
 
     // Play the interval back to the user
     System.out.println("This interval sounds like this: \n");
-    notePlayer.delayPlay(DELAY, NOTES[note] + BASE_NOTE);
+    notePlayer.play(NOTES[note] + BASE_NOTE);
 
     int newOctave = BASE_NOTE + octaveCounter;
 
@@ -306,7 +305,7 @@ public class IntervalIdentifier {
 
     // Play the interval back to the user
     System.out.println("This interval sounds like this: \n");
-    notePlayer.delayPlay(DELAY, NOTES[note] + BASE_NOTE);
+    notePlayer.play(NOTES[note] + BASE_NOTE);
 
     int newOctave = BASE_NOTE + octaveCounter;
 
@@ -367,7 +366,7 @@ public class IntervalIdentifier {
 
     // Play the interval back to the user
     System.out.println("This interval sounds like this: \n");
-    notePlayer.delayPlay(DELAY, NOTES[note] + BASE_NOTE);
+    notePlayer.play(NOTES[note] + BASE_NOTE);
 
     int newOctave = BASE_NOTE + octaveCounter;
 
