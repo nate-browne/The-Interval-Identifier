@@ -400,7 +400,7 @@ public class IntervalIdentifier {
   }
 
   /**
-   * This method creates an interval of a 7th bove the given starting note. The
+   * This method creates an interval of a 7th above the given starting note. The
    * return value is modded by the size of the array to wrap back around it.
    * @param starting note to use as the base
    * @return the note a seventh above the base
