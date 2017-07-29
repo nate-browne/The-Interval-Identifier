@@ -6,13 +6,17 @@ intervals on the fly.
 On UNIX systems, use the provided Makefile commands to compile, and run the
 program with ./IntervalCalc to get your musical woes solved!
 
-(Windows users, compile how you normally would compile a java program with
 
-javac IntervalIdentifier.java
+Windows users, compile how you normally would compile a java program with
+
+javac -cp %JFUGUE_DIR%\jfugue.jar;. IntervalIdentifier.java
+
+(replacing %JFUGUE_DIR% with the directory name where you have it saved)
 
 and run with
 
-java IntervalIdentifier)
+java -cp %JFUGUE_DIR%\jfugue.jar;. IntervalIdentifier
+
 
 I hope this project is of great use to you!
 
