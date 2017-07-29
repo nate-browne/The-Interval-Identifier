@@ -71,7 +71,7 @@ public class IntervalIdentifier {
         }
 
         System.out.print("Enter the starting note (as a number): ");
-        noteChoice = scan.nextInt();
+        noteChoice = scan.nextInt() % NOTES.length;
 
 
         // Next, grab the interval
@@ -115,7 +115,7 @@ public class IntervalIdentifier {
             break;
           default:
 
-            System.err.print("You entered an invalid quality. Try again.");
+            System.err.println("You entered an invalid quality. Try again.");
             break;
         }
 
@@ -126,7 +126,8 @@ public class IntervalIdentifier {
         scan.close();
 
         // Report error
-        System.err.println("Caught InputMismatchException!!");
+        System.err.print("Caught InputMismatchException!!");
+        System.err.println("Make sure to use numbers to select note/interval!");
 
         // Exit the program with error
         System.err.println("Exiting...\n");
