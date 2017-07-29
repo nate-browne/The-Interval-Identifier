@@ -120,7 +120,7 @@ public class IntervalIdentifier {
         System.err.println("Exiting...\n");
         System.exit(1);
 
-      // Handle user typing ^D
+      // Handle user typing EOF
       } catch(NoSuchElementException e) {
 
         // Close input going to the scanner
