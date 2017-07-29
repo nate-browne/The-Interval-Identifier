@@ -2,14 +2,15 @@
  * Name: Nate Browne
  * Date: 28 July 2017
  * File: IntervalIdentifier.java
- * Version: 1.1
- * This program identifies various types of intervals entered in by the user.
+ * Version: 2.0
+ * This program identifies various types of intervals entered in by the user,
+ * calculates them, prints it back, and plays the tones corresponding to it at a
+ * maximum of 3 octaves above middle c.
  */
 
 
 import java.util.*;
 import org.jfugue.*;
-import java.io.*;
 
 /**
  * Main class for the program.
@@ -22,6 +23,7 @@ public class IntervalIdentifier {
   private static final int WHOLE_STEP = 2;
   private static final int HALF_STEP = 1;
   private static final int FIFTH = 7;
+  private static final int BASE_NOTE = 5;
   private static final int OCTAVE = 8;
   private static final int OCTAVE_INTERVAL = 12;
 
@@ -35,9 +37,12 @@ public class IntervalIdentifier {
   // Create the scanner
   private static Scanner scan = new Scanner(System.in);
 
+  // Create the music player that will play the notes
+  private static Player notePlayer = new Player();
+
   // Array of note names
-  private static final String[] NOTES = {"A", "A#/B flat", "B", "C", "C#/D flat"
-    , "D", "D#/E flat", "E", "F", "F#/G flat", "G", "G#/A flat"};
+  private static final String[] NOTES = {"A", "Bb", "B", "C", "Db", "D", "Eb",
+    "E", "F", "F#", "G", "Ab"};
 
 
   /**
@@ -182,7 +187,15 @@ public class IntervalIdentifier {
     System.out.println("\nFor the note " + NOTES[note] + ", the interval of an "
       + "augmented " + ++originalInterval + " results in the note "
       + NOTES[newVal] + " " + octaveCounter + " octave(s) above the original " +
-      "note.\n");
+      "note.");
+
+    // Play the interval back to the user
+    System.out.println("This interval sounds like this: \n");
+    notePlayer.play(NOTES[note] + BASE_NOTE);
+
+    int newOctave = BASE_NOTE + octaveCounter;
+
+    notePlayer.play(NOTES[newVal] + newOctave);
   }
 
   /**
@@ -233,7 +246,15 @@ public class IntervalIdentifier {
     System.out.println("\nFor the note " + NOTES[note] + ", the interval of a "
       + "diminished " + ++originalInterval + " results in the note "
       + NOTES[newVal] + " " + octaveCounter + " octave(s) above the original " +
-      "note.\n");
+      "note.");
+
+    // Play the interval back to the user
+    System.out.println("This interval sounds like this: \n");
+    notePlayer.play(NOTES[note] + BASE_NOTE);
+
+    int newOctave = BASE_NOTE + octaveCounter;
+
+    notePlayer.play(NOTES[newVal] + newOctave);
   }
 
   /**
@@ -280,7 +301,15 @@ public class IntervalIdentifier {
     // Report result to user
     System.out.println("\nFor the note " + NOTES[note] + ", the interval of a "
       + "major " + ++originalInterval + " results in the note " + NOTES[newVal]
-      + " " + octaveCounter + " octave(s) above the original note.\n");
+      + " " + octaveCounter + " octave(s) above the original note.");
+
+    // Play the interval back to the user
+    System.out.println("This interval sounds like this: \n");
+    notePlayer.play(NOTES[note] + BASE_NOTE);
+
+    int newOctave = BASE_NOTE + octaveCounter;
+
+    notePlayer.play(NOTES[newVal] + newOctave);
   }
 
   /**
@@ -333,7 +362,15 @@ public class IntervalIdentifier {
     // Report result to user
     System.out.println("\nFor the note " + NOTES[note] + ", the interval of a "
       + "minor " + ++originalInterval + " results in the note " + NOTES[newVal]
-      + " " + octaveCounter + " octave(s) above the original note.\n");
+      + " " + octaveCounter + " octave(s) above the original note.");
+
+    // Play the interval back to the user
+    System.out.println("This interval sounds like this: \n");
+    notePlayer.play(NOTES[note] + BASE_NOTE);
+
+    int newOctave = BASE_NOTE + octaveCounter;
+
+    notePlayer.play(NOTES[newVal] + newOctave);
   }
 
   /**

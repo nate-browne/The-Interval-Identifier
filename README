@@ -1,13 +1,12 @@
 Ever wondered what a augmented 7th above A flat was, but wasn't sure how to
 calculate it or wanted to make sure your answer was correct? This program is the
 program for you! This calculator gives users the ability to calculate musical
-intervals on the fly.
+intervals on the fly, as well as playing the new interval created back to the
+user for them to hear what it sounds like.
 
 On UNIX systems, use the provided Makefile commands to compile, and run the
-program with ./IntervalCalc to get your musical woes solved!
-
-
-Windows users, compile how you normally would compile a java program with
+program with ./IntervalCalc to get your musical woes solved! Windows users,
+compile how you normally would compile a java program with
 
 javac -cp %JFUGUE_DIR%\jfugue.jar;. IntervalIdentifier.java
 
@@ -20,8 +19,8 @@ java -cp %JFUGUE_DIR%\jfugue.jar;. IntervalIdentifier
 
 I hope this project is of great use to you!
 
-Later versions may include GUI representations of the intervals created, as well
-as the intervals played in their respective musical tones! Stay tuned for that!
+Later versions may include GUI representations of the intervals created! Stay
+tuned for that!
 
 Email natebrowne@outlook.com with any suggestions, bugs, or ideas for the next
 versions of this program!
