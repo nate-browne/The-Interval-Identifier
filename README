@@ -1,0 +1,10 @@
+Ever wondered what a augmented 7th above A flat was, but wasn't sure how to
+calculate it or wanted to make sure your answer was correct? This program is the
+program for you! This calculator gives users the ability to calculate musical
+intervals on the fly.
+
+Use the provided Makefile commands to compile, and run the program with
+./IntervalCalc to get your musical woes solved!
+
+Email natebrowne@outlook.com with any suggestions, bugs, or ideas for the next
+versions of this program!
