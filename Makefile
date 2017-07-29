@@ -1,11 +1,11 @@
 all: interval
 
 interval: IntervalIdentifier.class
-	echo 'java IntervalIdentifier' > IntervalCalc
+	echo 'java -cp ./jfugue.jar:. IntervalIdentifier' > IntervalCalc
 	chmod ugo+x IntervalCalc
 
 IntervalIdentifier.class: IntervalIdentifier.java
-	javac IntervalIdentifier.java
+	javac -cp ./jfugue.jar:. IntervalIdentifier.java
 
 clean:
 	rm -f *.class IntervalCalc

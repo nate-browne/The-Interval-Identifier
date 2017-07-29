@@ -8,6 +8,7 @@
 
 
 import java.util.*;
+import org.jfugue.*;
 import java.io.*;
 
 /**
