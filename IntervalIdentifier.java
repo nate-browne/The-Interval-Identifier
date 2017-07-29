@@ -31,6 +31,9 @@ public class IntervalIdentifier {
   private static String qualityChoice;
   private static int noteChoice, intervalChoice;
 
+  // Used to make the note go up the octave
+  private static boolean goUp;
+
   // Used when reporting results back to the user
   private static int originalInterval, octaveCounter, newVal;
 
@@ -41,8 +44,8 @@ public class IntervalIdentifier {
   private static Player notePlayer = new Player();
 
   // Array of note names
-  private static final String[] NOTES = {"A", "Bb", "B", "C", "Db", "D", "Eb",
-    "E", "F", "F#", "G", "Ab"};
+  private static final String[] NOTES = {"C", "Db", "D", "Eb", "E", "F", "F#",
+    "G", "Ab", "A", "Bb", "B"};
 
 
   /**
@@ -55,6 +58,9 @@ public class IntervalIdentifier {
 
     // Start the loop
     while(true) {
+
+      // Reset the boolean to false
+      goUp = false;
 
       try {
 
@@ -147,6 +153,9 @@ public class IntervalIdentifier {
    */
   public static void makeAugmentedInterval(int note, int interval) {
 
+    // Used to correctly pitch the interval
+    int newOctave = 0;
+
     // Figure out which interval to create
     switch(interval) {
 
@@ -193,7 +202,13 @@ public class IntervalIdentifier {
     System.out.println("This interval sounds like this: \n");
     notePlayer.play(NOTES[note] + BASE_NOTE);
 
-    int newOctave = BASE_NOTE + octaveCounter;
+    if(goUp) {
+
+      newOctave = BASE_NOTE + 1;
+    } else {
+
+      newOctave = BASE_NOTE + octaveCounter;
+    }
 
     notePlayer.play(NOTES[newVal] + newOctave);
   }
@@ -205,6 +220,9 @@ public class IntervalIdentifier {
    * @param interval desired interval to create
    */
   public static void makeDiminishedInterval(int note, int interval) {
+
+    // Used to correctly pitch the interval
+    int newOctave = 0;
 
     // Figure out which interval to create
     switch(interval) {
@@ -252,7 +270,13 @@ public class IntervalIdentifier {
     System.out.println("This interval sounds like this: \n");
     notePlayer.play(NOTES[note] + BASE_NOTE);
 
-    int newOctave = BASE_NOTE + octaveCounter;
+    if(goUp) {
+
+      newOctave = BASE_NOTE + 1;
+    } else {
+
+      newOctave = BASE_NOTE + octaveCounter;
+    }
 
     notePlayer.play(NOTES[newVal] + newOctave);
   }
@@ -264,6 +288,9 @@ public class IntervalIdentifier {
    * @param interval desired interval to create
    */
   public static void makeMajorInterval(int note, int interval) {
+
+    // Used to correctly pitch the interval
+    int newOctave = 0;
 
     // Figure out which interval to create
     switch(interval) {
@@ -307,7 +334,13 @@ public class IntervalIdentifier {
     System.out.println("This interval sounds like this: \n");
     notePlayer.play(NOTES[note] + BASE_NOTE);
 
-    int newOctave = BASE_NOTE + octaveCounter;
+    if(goUp) {
+
+      newOctave = BASE_NOTE + 1;
+    } else {
+
+      newOctave = BASE_NOTE + octaveCounter;
+    }
 
     notePlayer.play(NOTES[newVal] + newOctave);
   }
@@ -319,6 +352,9 @@ public class IntervalIdentifier {
    * @param interval desired interval to create
    */
   public static void makeMinorInterval(int note, int interval) {
+
+    // Used to correctly pitch the interval
+    int newOctave = 0;
 
     // Figure out which interval to create
     switch(interval) {
@@ -368,7 +404,13 @@ public class IntervalIdentifier {
     System.out.println("This interval sounds like this: \n");
     notePlayer.play(NOTES[note] + BASE_NOTE);
 
-    int newOctave = BASE_NOTE + octaveCounter;
+    if(goUp) {
+
+      newOctave = BASE_NOTE + 1;
+    } else {
+
+      newOctave = BASE_NOTE + octaveCounter;
+    }
 
     notePlayer.play(NOTES[newVal] + newOctave);
   }
@@ -390,6 +432,11 @@ public class IntervalIdentifier {
    */
   public static int createSecond(int starting) {
 
+    if(starting + WHOLE_STEP >= NOTES.length) {
+
+      goUp = true;
+    }
+
     return (starting + WHOLE_STEP) % NOTES.length;
   }
 
@@ -400,6 +447,11 @@ public class IntervalIdentifier {
    * @return the note a third above the base
    */
   public static int createThird(int starting) {
+
+    if(starting + (WHOLE_STEP * WHOLE_STEP) >= NOTES.length) {
+
+      goUp = true;
+    }
 
     return (starting + (WHOLE_STEP * WHOLE_STEP)) % NOTES.length;
   }
@@ -412,6 +464,11 @@ public class IntervalIdentifier {
    */
   public static int createFourth(int starting) {
 
+    if(starting + (FIFTH - WHOLE_STEP) >= NOTES.length) {
+
+      goUp = true;
+    }
+
     return (starting + (FIFTH - WHOLE_STEP)) % NOTES.length;
   }
 
@@ -422,6 +479,11 @@ public class IntervalIdentifier {
    * @return the note a fifth above the base
    */
   public static int createFifth(int starting) {
+
+    if(starting + FIFTH >= NOTES.length) {
+
+      goUp = true;
+    }
 
     return (starting + FIFTH) % NOTES.length;
   }
@@ -434,6 +496,11 @@ public class IntervalIdentifier {
    */
   public static int createSixth(int starting) {
 
+    if(starting + (FIFTH + WHOLE_STEP) >= NOTES.length) {
+
+      goUp = true;
+    }
+
     return (starting + (FIFTH + WHOLE_STEP)) % NOTES.length;
   }
 
@@ -444,6 +511,11 @@ public class IntervalIdentifier {
    * @return the note a seventh above the base
    */
   public static int createSeventh(int starting) {
+
+    if(starting + (OCTAVE_INTERVAL - WHOLE_STEP) >= NOTES.length) {
+
+      goUp = true;
+    }
 
     return (starting + (OCTAVE_INTERVAL - WHOLE_STEP)) % NOTES.length;
   }
