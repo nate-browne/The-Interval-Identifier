@@ -324,7 +324,7 @@ public class IntervalIdentifier {
     }
 
     // Eliminate perfect intervals (intervals without minor variants)
-    if(interval != 1 && interval != 4 && interval != 5 && interval != OCTAVE) {
+    if(interval != 0 && interval != 3 && interval != 4) {
 
       newVal = (newVal - HALF_STEP) % NOTES.length;
     }
