@@ -2,7 +2,7 @@
  * Name: Nate Browne
  * Date: 28 July 2017
  * File: IntervalIdentifier.java
- * Version: 1.0
+ * Version: 1.1
  * This program identifies various types of intervals entered in by the user.
  */
 
@@ -68,7 +68,8 @@ public class IntervalIdentifier {
           + "to the amount of notes away from the base (5th = 4, unison = 0, " +
           "etc): ");
 
-        // Mod by the size of the array to avoid ArrayIndexOutOfBoundsException
+        // Mod by the number of unique notes in a scale to avoid an
+        // ArrayIndexOutOfBoundsException
         originalInterval = scan.nextInt();
         intervalChoice = originalInterval % (OCTAVE - 1);
         octaveCounter = originalInterval / (OCTAVE - 1);
@@ -322,7 +323,7 @@ public class IntervalIdentifier {
         break;
     }
 
-    // Eliminate perfect intervals
+    // Eliminate perfect intervals (intervals without minor variants)
     if(interval != 1 && interval != 4 && interval != 5 && interval != OCTAVE) {
 
       newVal = (newVal - HALF_STEP) % NOTES.length;
@@ -344,7 +345,8 @@ public class IntervalIdentifier {
     return starting;
   }
   /**
-   * This method creates an interval of a 2nd above the given starting note.
+   * This method creates an interval of a 2nd above the given starting note. The
+   * return value is modded by the size of the array to wrap back around it.
    * @param starting note to use as the base
    * @return the note a second above the base
    */
@@ -354,7 +356,8 @@ public class IntervalIdentifier {
   }
 
   /**
-   * This method creates an interval of a 3rd above the given starting note.
+   * This method creates an interval of a 3rd above the given starting note. The
+   * return value is modded by the size of the array to wrap back around it.
    * @param starting note to use as the base
    * @return the note a third above the base
    */
@@ -364,7 +367,8 @@ public class IntervalIdentifier {
   }
 
   /**
-   * This method creates an interval of a 4th above the given starting note.
+   * This method creates an interval of a 4th above the given starting note. The
+   * return value is modded by the size of the array to wrap back around it.
    * @param starting note to use as the base
    * @return the note a fourth above the base
    */
@@ -374,7 +378,8 @@ public class IntervalIdentifier {
   }
 
   /**
-   * This method creates an interval of a 5th above the given starting note.
+   * This method creates an interval of a 5th above the given starting note. The
+   * return value is modded by the size of the array to wrap back around it.
    * @param starting note to use as the base
    * @return the note a fifth above the base
    */
@@ -384,7 +389,8 @@ public class IntervalIdentifier {
   }
 
   /**
-   * This method creates an interval of a 6th above the given starting note.
+   * This method creates an interval of a 6th above the given starting note. The
+   * return value is modded by the size of the array to wrap back around it.
    * @param starting note to use as the base
    * @return the note a sixth above the base
    */
@@ -394,7 +400,8 @@ public class IntervalIdentifier {
   }
 
   /**
-   * This method creates an interval of a 7th bove the given starting note.
+   * This method creates an interval of a 7th bove the given starting note. The
+   * return value is modded by the size of the array to wrap back around it.
    * @param starting note to use as the base
    * @return the note a seventh above the base
    */
