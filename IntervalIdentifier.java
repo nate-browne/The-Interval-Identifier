@@ -71,14 +71,15 @@ public class IntervalIdentifier {
         }
 
         System.out.print("Enter the starting note (as a number): ");
+
+        // Mod by the length of the array to wrap back around
         noteChoice = scan.nextInt() % NOTES.length;
 
 
         // Next, grab the interval
         System.out.println("Enter in the desired interval to calculate");
-        System.out.print("Intervals are entered with the number corresponding "
-          + "to the amount of notes away from the base (5th = 4, unison = 0, " +
-          "etc): ");
+        System.out.print("Intervals are entered with the corresponding number. "
+          + "(5th = 5, unison = 1, etc): ");
 
         // Mod by the number of unique notes in a scale to avoid an
         // ArrayIndexOutOfBoundsException
@@ -99,19 +100,19 @@ public class IntervalIdentifier {
 
           case "a":
 
-            makeAugmentedInterval(noteChoice, intervalChoice);
+            makeAugmentedInterval(noteChoice, --intervalChoice);
             break;
           case "d":
 
-            makeDiminishedInterval(noteChoice, intervalChoice);
+            makeDiminishedInterval(noteChoice, --intervalChoice);
             break;
           case "m":
 
-            makeMinorInterval(noteChoice, intervalChoice);
+            makeMinorInterval(noteChoice, --intervalChoice);
             break;
           case "M":
 
-            makeMajorInterval(noteChoice, intervalChoice);
+            makeMajorInterval(noteChoice, --intervalChoice);
             break;
           default:
 
@@ -127,7 +128,7 @@ public class IntervalIdentifier {
 
         // Report error
         System.err.print("Caught InputMismatchException!!");
-        System.err.println("Make sure to use numbers to select note/interval!");
+        System.err.println("Make sure to use NUMBERS to select note/interval!");
 
         // Exit the program with error
         System.err.println("Exiting...\n");
@@ -195,7 +196,7 @@ public class IntervalIdentifier {
 
     // Report result to user
     System.out.println("\nFor the note " + NOTES[note] + ", the interval of an "
-      + "augmented " + ++originalInterval + " results in the note "
+      + "augmented " + originalInterval + " results in the note "
       + NOTES[newVal] + " " + octaveCounter + " octave(s) above the original " +
       "note.");
 
@@ -263,7 +264,7 @@ public class IntervalIdentifier {
 
     // Report result to user
     System.out.println("\nFor the note " + NOTES[note] + ", the interval of a "
-      + "diminished " + ++originalInterval + " results in the note "
+      + "diminished " + originalInterval + " results in the note "
       + NOTES[newVal] + " " + octaveCounter + " octave(s) above the original " +
       "note.");
 
@@ -328,7 +329,7 @@ public class IntervalIdentifier {
 
     // Report result to user
     System.out.println("\nFor the note " + NOTES[note] + ", the interval of a "
-      + "major " + ++originalInterval + " results in the note " + NOTES[newVal]
+      + "major " + originalInterval + " results in the note " + NOTES[newVal]
       + " " + octaveCounter + " octave(s) above the original note.");
 
     // Play the interval back to the user
@@ -398,7 +399,7 @@ public class IntervalIdentifier {
 
     // Report result to user
     System.out.println("\nFor the note " + NOTES[note] + ", the interval of a "
-      + "minor " + ++originalInterval + " results in the note " + NOTES[newVal]
+      + "minor " + originalInterval + " results in the note " + NOTES[newVal]
       + " " + octaveCounter + " octave(s) above the original note.");
 
     // Play the interval back to the user
