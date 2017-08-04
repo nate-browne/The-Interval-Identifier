@@ -84,8 +84,8 @@ public class IntervalIdentifier {
         // Mod by the number of unique notes in a scale to avoid an
         // ArrayIndexOutOfBoundsException
         originalInterval = scan.nextInt();
-        intervalChoice = originalInterval % (OCTAVE - 1);
-        octaveCounter = originalInterval / (OCTAVE - 1);
+        intervalChoice = originalInterval % OCTAVE;
+        octaveCounter = originalInterval / OCTAVE;
 
 
         // Last, grab the quality of the interval
@@ -161,6 +161,10 @@ public class IntervalIdentifier {
     // Figure out which interval to create
     switch(interval) {
 
+      case -1:
+
+        newVal = createUnison(note);
+        break;
       case 0:
 
         newVal = createUnison(note);
@@ -229,7 +233,11 @@ public class IntervalIdentifier {
     // Figure out which interval to create
     switch(interval) {
 
-      case '0':
+      case -1:
+
+        newVal = createUnison(note);
+        break;
+      case 0:
 
         newVal = createUnison(note);
         break;
@@ -261,6 +269,13 @@ public class IntervalIdentifier {
 
     // Make the interval diminished
     newVal = (newVal - HALF_STEP) % NOTES.length;
+
+    // Hard code the exception solution in
+    if(newVal == -1) {
+
+      newVal = NOTES.length - 1;
+      goUp = false;
+    }
 
     // Report result to user
     System.out.println("\nFor the note " + NOTES[note] + ", the interval of a "
@@ -297,6 +312,10 @@ public class IntervalIdentifier {
     // Figure out which interval to create
     switch(interval) {
 
+      case -1:
+
+        newVal = createUnison(note);
+        break;
       case 0:
 
         newVal = createUnison(note);
@@ -361,7 +380,11 @@ public class IntervalIdentifier {
     // Figure out which interval to create
     switch(interval) {
 
-      case '0':
+      case -1:
+
+        newVal = createUnison(note);
+        break;
+      case 0:
 
         newVal = createUnison(note);
         break;
@@ -394,7 +417,7 @@ public class IntervalIdentifier {
     // Eliminate perfect intervals (intervals without minor variants)
     if(interval != 0 && interval != 3 && interval != 4) {
 
-      newVal = (newVal - HALF_STEP) % NOTES.length;
+      newVal = ((newVal - HALF_STEP) + NOTES.length) % NOTES.length;
     }
 
     // Report result to user
@@ -514,11 +537,11 @@ public class IntervalIdentifier {
    */
   public static int createSeventh(int starting) {
 
-    if(starting + (OCTAVE_INTERVAL - WHOLE_STEP) >= NOTES.length) {
+    if(starting + (OCTAVE_INTERVAL - HALF_STEP) >= NOTES.length) {
 
       goUp = true;
     }
 
-    return (starting + (OCTAVE_INTERVAL - WHOLE_STEP)) % NOTES.length;
+    return (starting + (OCTAVE_INTERVAL - HALF_STEP)) % NOTES.length;
   }
 }
