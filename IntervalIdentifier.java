@@ -2,7 +2,7 @@
  * Name: Nate Browne
  * Date: 28 July 2017
  * File: IntervalIdentifier.java
- * Version: 3.0
+ * Version: 3.5
  * This program identifies various types of intervals entered in by the user,
  * calculates them, prints it back, and plays the tones corresponding to it. It
  * plays them starting from middle C and going up.
@@ -84,14 +84,22 @@ public class IntervalIdentifier {
         // Next, grab the interval
         System.out.println("Enter in the desired interval to calculate.");
         System.out.print("Intervals are entered with the corresponding number. "
-          + "(5th = 5, unison = 1 or 0, 3rd = 3, etc): ");
+          + "(5th = 5, unison = 1, 3rd = 3, etc): ");
 
         // Mod by the number of unique notes in a scale to keep the circular
         // nature of scales intact
         originalInterval = scan.nextInt();
-        intervalChoice = originalInterval % OCTAVE;
-        octaveCounter = originalInterval / OCTAVE;
+        intervalChoice = originalInterval % (OCTAVE - 1);
 
+        // Used to make sure user that enters in a 7th gets a 7th
+        if(intervalChoice == 0) {
+
+          intervalChoice = 7;
+        }
+
+        // Used later to report back the octave of the created note in the
+        // interval
+        octaveCounter = originalInterval / OCTAVE;
 
         // Last, grab the quality of the interval
         System.out.print("Enter an interval quality: ((a)ugmented, (d)iminished"
@@ -189,6 +197,12 @@ public class IntervalIdentifier {
       case "a":
 
         newVal = (newVal + HALF_STEP) % NOTES.length;
+
+        // Special case of user entering augmented 7
+        if(newVal == noteChoice) {
+
+          octaveCounter++;
+        }
 
         created = "augmented";
         break;
