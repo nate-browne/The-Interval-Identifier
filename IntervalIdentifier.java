@@ -2,7 +2,7 @@
  * Name: Nate Browne
  * Date: 28 July 2017
  * File: IntervalIdentifier.java
- * Version: 2.6
+ * Version: 3.0
  * This program identifies various types of intervals entered in by the user,
  * calculates them, prints it back, and plays the tones corresponding to it. It
  * plays them starting from middle C and going up.
@@ -23,13 +23,12 @@ public class IntervalIdentifier {
   private static final int WHOLE_STEP = 2;
   private static final int HALF_STEP = 1;
   private static final int FIFTH = 7;
-  private static final int BASE_NOTE = 5;
   private static final int OCTAVE = 8;
   private static final int OCTAVE_INTERVAL = 12;
 
   // User input grabbed by the scanner
   private static String qualityChoice;
-  private static int noteChoice, intervalChoice;
+  private static int noteChoice, intervalChoice, baseNote;
 
   // Used to make the note go up the octave if needed
   private static boolean goUp;
@@ -51,6 +50,7 @@ public class IntervalIdentifier {
   /**
    * Main method. Allows user to select interval type, distance, and starting
    * note.
+   * @param args Array of command line arguments passed in
    */
   public static void main(String[] args) {
 
@@ -76,8 +76,13 @@ public class IntervalIdentifier {
         // Mod by the length of the array to wrap back around
         noteChoice = scan.nextInt() % NOTES.length;
 
+        // Next, grab the starting octave
+        System.out.println("Please enter in a desired starting octave.");
+        System.out.print("Middle C is \"5\": ");
+        baseNote = scan.nextInt();
+
         // Next, grab the interval
-        System.out.println("Enter in the desired interval to calculate");
+        System.out.println("Enter in the desired interval to calculate.");
         System.out.print("Intervals are entered with the corresponding number. "
           + "(5th = 5, unison = 1 or 0, 3rd = 3, etc): ");
 
@@ -207,7 +212,7 @@ public class IntervalIdentifier {
       case "m":
 
         // Eliminate perfect intervals (intervals without minor variants)
-        if(interval != 0 && interval != 3 && interval != 4) {
+        if(interval != 0 && interval != 3 && interval != 4 && interval != -1) {
 
           newVal = (newVal - HALF_STEP) % NOTES.length;
 
@@ -243,14 +248,14 @@ public class IntervalIdentifier {
 
     // Play the interval back to the user
     System.out.println("This interval sounds like this: \n");
-    notePlayer.play(NOTES[note] + BASE_NOTE);
+    notePlayer.play(NOTES[note] + baseNote);
 
     if(goUp) {
 
-      newOctave = BASE_NOTE + 1;
+      newOctave = baseNote + 1;
     } else {
 
-      newOctave = BASE_NOTE + octaveCounter;
+      newOctave = baseNote + octaveCounter;
     }
 
     notePlayer.play(NOTES[newVal] + newOctave);
