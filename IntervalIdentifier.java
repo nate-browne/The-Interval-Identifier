@@ -198,7 +198,7 @@ public class IntervalIdentifier {
 
         newVal = (newVal + HALF_STEP) % NOTES.length;
 
-        // Special case of user entering augmented 7
+        // Special case of user entering augmented 7 (which is really an octave)
         if(newVal == note) {
 
           octaveCounter++;
