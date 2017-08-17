@@ -1,6 +1,7 @@
 /*
  * Name: Nate Browne
  * Date: 28 July 2017
+ * Last Edited: 17 August 2017
  * File: IntervalIdentifier.java
  * Version: 3.5
  * This program identifies various types of intervals entered in by the user,
@@ -50,7 +51,7 @@ public class IntervalIdentifier {
   /**
    * Main method. Allows user to select interval type, distance, and starting
    * note.
-   * @param args Array of command line arguments passed in
+   * @param args String array of command line arguments passed in
    */
   public static void main(String[] args) {
 
