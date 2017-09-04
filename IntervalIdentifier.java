@@ -118,13 +118,12 @@ public class IntervalIdentifier {
         scan.close();
 
         // Report error
-        System.err.print("Caught InputMismatchException!!");
+        System.err.print("Caught InputMismatchException!! ");
         System.err.println("Make sure to use NUMBERS to select note/interval!");
 
         // Exit the program with error
         System.err.println("Exiting...\n");
         System.exit(1);
-
       // Handle user typing EOF
       } catch(NoSuchElementException e) {
 
