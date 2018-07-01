@@ -8,8 +8,10 @@
  * plays them starting from middle C and going up.
  */
 
-import java.util.*;
-import org.jfugue.*;
+import java.util.Scanner;
+import java.util.InputMismatchException;
+import java.util.NoSuchElementException;
+import org.jfugue.Player;
 
 /**
  * This class is used in the Main method for the Driver.

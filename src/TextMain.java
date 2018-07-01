@@ -14,7 +14,7 @@ import java.util.NoSuchElementException;
 /**
  * Main driver for the program.
  */
-public class Main {
+public class TextMain {
 
   /**
    * Main method. Allows user to select interval type, distance, and starting
