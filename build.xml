@@ -12,9 +12,16 @@
   </target>
 
   <!--Create an executable-->
-  <target name="compile" depends="comp" description="creates executable">
+  <target name="compiletxt" depends="comp" description="creates executable">
     <exec executable="/bin/bash">
-      <arg value="./create.sh"/>
+      <arg value="./createtxt.sh"/>
+    </exec>
+  </target>
+
+  <!--Create GUI executable-->
+  <target name="compileGUI" depends="comp" description="creates GUI executable">
+    <exec executable="/bin/bash">
+      <arg value="./creategui.sh"/>
     </exec>
   </target>
 
@@ -28,12 +35,8 @@
   </target>
 
   <!--Create javadocs-->
-  <target name="doc" depends="compile" description="creates javadoc HTML">
+  <target name="doc" depends="compiletxt" description="creates javadoc HTML">
     <javadoc sourcepath="${source.dir}" destdir="{doc.dir}"/>
-  </target>
-
-  <!--Create an executable jar file-->
-  <target name="dist" depends="compile" description="creates a .jar distribution">
   </target>
 
   <!--Cleans up by deleting build and doc directories-->

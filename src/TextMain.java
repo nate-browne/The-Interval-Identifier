@@ -2,7 +2,7 @@
  * Name: Nate Browne
  * Date: 28 July 2017
  * Last Edited: 17 August 2017
- * File: Main.java
+ * File: TextMain.java
  * Version: 3.5
  * This is the main method of the program. It uses the
  * IntervalIdentifier class to identify typed input
