@@ -1,4 +1,4 @@
-<project name="IntervalIdentifier" default="compile" basedir=".">
+<project name="IntervalIdentifier" default="doc" basedir=".">
   <description>This build file is used to create the application</description>
   <!-- Global build file properties-->
   <property name="source.dir" location="src/"/>
