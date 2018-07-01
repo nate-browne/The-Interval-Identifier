@@ -34,11 +34,11 @@ public class GUIMain extends JFrame {
   private static final String TEXT4 = "Last, enter an interval quality. " +
     "((a)ugmented, (d)iminished, (M)ajor, (m)inor.";
 
-  private IntervalIdentifier ID; // Used throughout the program
-  private JTextField step1, step2, step3, step4;
-  private JLabel text1, text2, text3, text4, titleText;
+  private IntervalIdentifier ID; // to create intervals
+  private JTextField step1, step2, step3, step4; // For user input
+  private JLabel text1, text2, text3, text4, titleText; // To display info
   private JPanel top1, top2, mid1, mid2, bot, mainTop, mainMid, mainBot;
-  private JButton but1, but2, but3, but4, exitButton;
+  private JButton but1, but2, but3, but4, exitButton; // For user interaction
 
   /**
    * Constructor for the GUI. Sets up the fields of the GUI
@@ -92,20 +92,20 @@ public class GUIMain extends JFrame {
 
     // First, the top panel
     this.top1.add(this.titleText);
+    this.mainTop.add(this.top1, BorderLayout.CENTER);
+
+    // Next up, the middle panel
     this.top2.add(this.text1);
     this.top2.add(this.step1);
     this.top2.add(this.but1);
-    this.mainTop.add(this.top1, BorderLayout.NORTH);
-    this.mainTop.add(this.top2, BorderLayout.SOUTH);
-
-    // Next up, the middle panel
     this.mid1.add(this.text2);
     this.mid1.add(this.step2);
     this.mid1.add(this.but2);
     this.mid2.add(this.text3);
     this.mid2.add(this.step3);
     this.mid2.add(this.but3);
-    this.mainMid.add(this.mid1, BorderLayout.NORTH);
+    this.mainMid.add(this.top2, BorderLayout.NORTH);
+    this.mainMid.add(this.mid1, BorderLayout.CENTER);
     this.mainMid.add(this.mid2, BorderLayout.SOUTH);
 
     // Bottom panel
@@ -113,7 +113,7 @@ public class GUIMain extends JFrame {
     this.bot.add(this.step4);
     this.bot.add(this.but4);
     this.mainBot.add(this.bot, BorderLayout.NORTH);
-    this.mainBot.add(this.exitButton, BorderLayout.SOUTH);
+    this.mainBot.add(this.exitButton, BorderLayout.CENTER);
 
     // Add the panels to the canvas
     this.add(this.mainTop, BorderLayout.NORTH);
