@@ -19,7 +19,7 @@ public class TextMain {
   /**
    * Main method. Allows user to select interval type, distance, and starting
    * note.
-   * 
+   *
    * @param args String array of command line arguments passed in
    */
   public static void main(String[] args) {

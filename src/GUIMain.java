@@ -12,7 +12,6 @@ import java.awt.FlowLayout;
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.lang.NumberFormatException;
 import javax.swing.JTextField;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -30,7 +29,7 @@ public class GUIMain extends JFrame {
   /* Declaration of instance variables and constants */
   private static final long serialVersionUID = 1L;
   private static final String TEXT1 = "First, enter a starting note as a number"
-    + " (C = 1 through B = 12)";
+    + " (C = 0 through B = 11)";
   private static final String TEXT2 = "Next, enter in a desired starting octave"
     + ". Middle C is \"5\".";
   private static final String TEXT3 = "Third, enter the desired interval to " +
@@ -163,7 +162,7 @@ public class GUIMain extends JFrame {
   ActionListener al1 = ae -> {
     boolean option = true;
     try {
-    
+
       // Set note choice based on the passed in string
       noteChoice = id.grabNote(step1.getText());
     } catch (NumberFormatException e) {
@@ -230,7 +229,7 @@ public class GUIMain extends JFrame {
 
     boolean option = true;
     try {
-      
+
       intervalChoice = id.grabInterval(step3.getText());
     } catch (NumberFormatException e) {
       // Report the error then allow user to decide
@@ -299,7 +298,7 @@ public class GUIMain extends JFrame {
   /**
    * This function abstracts the end program tasks away so that other methods
    * can call it if needed. It closes the open scanner before exiting.
-   * 
+   *
    * @param error boolean for if the program should exit with code 1 or code 0
    */
   private void endProg(boolean error) {
@@ -313,7 +312,7 @@ public class GUIMain extends JFrame {
 
   /**
    * Main entry point into the program.
-   * 
+   *
    * @param args String array of command line arguments
    */
   public static void main(String[] args) {
@@ -321,5 +320,5 @@ public class GUIMain extends JFrame {
     gg.setLocation(30, 50);
     gg.setSize(1200, 1000);
     gg.setVisible(true);
-  }                                                                  
+  }
 }

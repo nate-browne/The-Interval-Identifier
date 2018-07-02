@@ -16,7 +16,7 @@ import org.jfugue.Player;
 /**
  * This class is used in the Main method for the Driver.
  * It contains the functionality to parse user input, calculate the correct
- * notes, report to the user, and play the notes.  
+ * notes, report to the user, and play the notes.
  */
 public class IntervalIdentifier {
 
@@ -32,7 +32,7 @@ public class IntervalIdentifier {
     + " results in the note %s %d octave(s) above the original note.\n";
 
   // music player that will play the notes
-  private Player notePlayer; 
+  private Player notePlayer;
 
   // Scanner used to read in input
   private Scanner scan;
@@ -59,7 +59,7 @@ public class IntervalIdentifier {
 
   /**
    * This method grabs the user input for the desired note to use as a base
-   * 
+   *
    * @throws NoSuchElementException when program is supposed to terminate (EOF)
    * @throws InputMismatchException when a mismatching type is given
    * @return the index in the array corresponding to the chosen note
@@ -82,7 +82,7 @@ public class IntervalIdentifier {
   /**
    * This method grabs the user input for the desired note to use as a base. This
    * overloaded version is the one used in the GUI version of the program.
-   * 
+   *
    * @param opt String that the user typed from the GUI
    * @throws NumberFormatException when a mismatching type is given
    * @return the index in the array corresponding to the chosen note
@@ -94,7 +94,7 @@ public class IntervalIdentifier {
 
   /**
    * This method grabs the octave that the user wants to put their base in.
-   * 
+   *
    * @throws NoSuchElementException when program is supposed to terminate (EOF)
    * @throws InputMismatchException when a mismatching type is given
    */
@@ -108,7 +108,7 @@ public class IntervalIdentifier {
   /**
    * This method grabs the octave that the user wants to put their base in. This
    * overloaded version is the one used in the GUI version of the program.
-   * 
+   *
    * @param opt String that the user typed from the GUI
    * @throws NumberFormatException when a mismatching type is given
    */
@@ -120,7 +120,7 @@ public class IntervalIdentifier {
 
   /**
    * This method grabs the interval the user wants to hear
-   * 
+   *
    * @throws NoSuchElementException when program is supposed to terminate (EOF)
    * @throws InputMismatchException when a mismatching type is given
    * @return the chosen interval
@@ -152,7 +152,7 @@ public class IntervalIdentifier {
   /**
    * This method grabs the interval the user wants to hear. This overloaded
    * version is called from the GUI version of the program
-   * 
+   *
    * @param opt the option that the user typed in
    * @throws NumberFormatException when a mismatching type is given
    * @return the chosen interval
@@ -173,7 +173,7 @@ public class IntervalIdentifier {
 
   /**
    * This method grabs the desired interval quality from the four choices
-   * 
+   *
    * @throws NoSuchElementException when program is supposed to terminate (EOF)
    * @return a string corresponding to the desired quality
    */
@@ -195,7 +195,7 @@ public class IntervalIdentifier {
 
   /**
    * This helper method parses the quality and returns the corresponding string
-   * 
+   *
    * @param interval the passed in interval to use
    * @param quality the passed in string for quality
    * @return the corrected string to use
@@ -273,7 +273,7 @@ public class IntervalIdentifier {
 
   /**
    * This small helper method parses the given interval int passed in
-   * 
+   *
    * @param interval the interval to parse
    */
   private void parseInterval(int note, int interval) {
@@ -317,7 +317,7 @@ public class IntervalIdentifier {
    * This one method delegates to the helper methods to create the desired
    * interval, then changes the quality and prints the results back to the user
    * along with playing the notes in succession.
-   * 
+   *
    * @param note base note of interval grabbed from main.
    * @param interval desired interval to create grabbed from main.
    * @param quality desired quality of created interval
@@ -364,7 +364,7 @@ public class IntervalIdentifier {
 
   /**
    * This method creates an interval of a unison above the given starting note.
-   * 
+   *
    * @param starting note to use as the base
    * @return the base
    */
@@ -375,7 +375,7 @@ public class IntervalIdentifier {
   /**
    * This method creates an interval of a 2nd above the given starting note. The
    * return value is modded by the size of the array to wrap back around it.
-   * 
+   *
    * @param starting note to use as the base
    * @return the note a second above the base
    */
@@ -392,7 +392,7 @@ public class IntervalIdentifier {
   /**
    * This method creates an interval of a 3rd above the given starting note. The
    * return value is modded by the size of the array to wrap back around it.
-   * 
+   *
    * @param starting note to use as the base
    * @return the note a third above the base
    */
@@ -409,7 +409,7 @@ public class IntervalIdentifier {
   /**
    * This method creates an interval of a 4th above the given starting note. The
    * return value is modded by the size of the array to wrap back around it.
-   * 
+   *
    * @param starting note to use as the base
    * @return the note a fourth above the base
    */
@@ -426,7 +426,7 @@ public class IntervalIdentifier {
   /**
    * This method creates an interval of a 5th above the given starting note. The
    * return value is modded by the size of the array to wrap back around it.
-   * 
+   *
    * @param starting note to use as the base
    * @return the note a fifth above the base
    */
@@ -443,7 +443,7 @@ public class IntervalIdentifier {
   /**
    * This method creates an interval of a 6th above the given starting note. The
    * return value is modded by the size of the array to wrap back around it.
-   * 
+   *
    * @param starting note to use as the base
    * @return the note a sixth above the base
    */
@@ -460,7 +460,7 @@ public class IntervalIdentifier {
   /**
    * This method creates an interval of a 7th above the given starting note. The
    * return value is modded by the size of the array to wrap back around it.
-   * 
+   *
    * @param starting note to use as the base
    * @return the note a seventh above the base
    */
