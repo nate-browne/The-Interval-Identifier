@@ -9,6 +9,7 @@
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.lang.NumberFormatException;
@@ -38,12 +39,13 @@ public class GUIMain extends JFrame {
     "((a)ugmented, (d)iminished, (M)ajor, (m)inor.";
   private static final String ERR_STR = "Your input was invalid. Re-enter?";
   private static final int NUM_FIELDS = 4; // Number of JTextFields created
+  private static final Color EMERALD = new Color(0, 89, 11);
 
   private IntervalIdentifier id; // to create intervals
   private JTextField step1, step2, step3, step4; // For user input
   private JLabel text1, text2, text3, text4, titleText; // To display info
   private JTextField[] fields = new JTextField[NUM_FIELDS];
-  private JPanel top1, top2, mid1, mid2, bot, mainTop, mainMid, mainBot;
+  private JPanel top1, top2, mid1, mid2, bot, mainMid, mainBot;
   private JButton but1, but2, but3, but4, exitButton; // For user interaction
   private int noteChoice, intervalChoice; // Entered by the user
   private String qualityChoice;
@@ -56,47 +58,67 @@ public class GUIMain extends JFrame {
     // First, create the IntervalIdentifier
     this.id = new IntervalIdentifier();
 
-    // Next, create all of the panels
+    // Next, create all of the panels and set background colors
+    // to black
     this.top1 = new JPanel(new FlowLayout());
     this.mid1 = new JPanel(new FlowLayout());
     this.mid2 = new JPanel(new FlowLayout());
     this.top2 = new JPanel(new FlowLayout());
     this.bot = new JPanel(new FlowLayout());
-    this.mainTop = new JPanel(new BorderLayout());
     this.mainMid = new JPanel(new BorderLayout());
     this.mainBot = new JPanel(new BorderLayout());
+    this.top1.setBackground(Color.BLACK);
+    this.top2.setBackground(Color.BLACK);
+    this.mid1.setBackground(Color.BLACK);
+    this.mid2.setBackground(Color.BLACK);
+    this.bot.setBackground(Color.BLACK);
+    this.mainMid.setBackground(Color.BLACK);
+    this.mainBot.setBackground(Color.BLACK);
 
-    // Now, create all of the labels
+    // Now, create all of the labels and set the text colors
     this.text1 = new JLabel(TEXT1, JLabel.CENTER);
     this.text2 = new JLabel(TEXT2, JLabel.CENTER);
     this.text3 = new JLabel(TEXT3, JLabel.CENTER);
     this.text4 = new JLabel(TEXT4, JLabel.CENTER);
     this.titleText = new JLabel("Interval Identifier", JLabel.CENTER);
+    this.titleText.setForeground(EMERALD);
+    this.text1.setForeground(Color.white);
+    this.text2.setForeground(Color.white);
+    this.text3.setForeground(Color.white);
+    this.text4.setForeground(Color.white);
 
     // Next up, the buttons
-    this.but1 = new JButton("Go!");
-    this.but2 = new JButton("Go!");
-    this.but3 = new JButton("Go!");
+    this.but1 = new JButton("Next Step");
+    this.but2 = new JButton("Next Step");
+    this.but3 = new JButton("Next Step");
     this.but4 = new JButton("Go!");
     this.exitButton = new JButton("Exit");
 
-    // Disable buttons 2 and 3 for now
+    // Disable buttons 2, 3, and 4 for now
     this.but2.setEnabled(false);
     this.but3.setEnabled(false);
     this.but4.setEnabled(false);
 
-    // Add action listeners for the buttons
-    this.but1.addActionListener(new firstSubmitButtonHandler());
-    this.but2.addActionListener(new secondSubmitButtonHandler());
-    this.but3.addActionListener(new thirdSubmitButtonHandler());
-    this.but4.addActionListener(new fourthSubmitButtonHandler());
-    this.exitButton.addActionListener(new exitButtonHandler());
-
-    // Lastly, the TextFields
+    // Next, the TextFields
     this.step1 = new JTextField(20);
     this.step2 = new JTextField(20);
     this.step3 = new JTextField(20);
     this.step4 = new JTextField(20);
+
+    /*
+     * Add ActionListeners to the corresponding components
+     * The ActionListeners are defined below using a functional programming
+     * style
+     */
+    this.but1.addActionListener(al1);
+    this.step1.addActionListener(al1);
+    this.but2.addActionListener(al2);
+    this.step2.addActionListener(al2);
+    this.but3.addActionListener(al3);
+    this.step3.addActionListener(al3);
+    this.but4.addActionListener(al4);
+    this.step4.addActionListener(al4);
+    this.exitButton.addActionListener(exitB);
 
     // initialize the fields array
     fields[0] = this.step1;
@@ -106,7 +128,6 @@ public class GUIMain extends JFrame {
 
     // First, the top panel
     this.top1.add(this.titleText);
-    this.mainTop.add(this.top1, BorderLayout.CENTER);
 
     // Next up, the middle panel
     this.top2.add(this.text1);
@@ -130,153 +151,140 @@ public class GUIMain extends JFrame {
     this.mainBot.add(this.exitButton, BorderLayout.CENTER);
 
     // Add the panels to the canvas
-    this.add(this.mainTop, BorderLayout.NORTH);
+    this.add(this.top1, BorderLayout.NORTH);
     this.add(this.mainMid, BorderLayout.CENTER);
     this.add(this.mainBot, BorderLayout.SOUTH);
   }
 
   /**
-   * This inner class handles all actions associated with the first "go" button
-   * This button is used to grab the first note from the user.
+   * This first ActionListener is for the first button/JTextField.
+   * It handles the user pressing the button/hitting <Enter> in the field.
    */
-  private class firstSubmitButtonHandler implements ActionListener {
+  ActionListener al1 = ae -> {
+    boolean option = true;
+    try {
+    
+      // Set note choice based on the passed in string
+      noteChoice = id.grabNote(step1.getText());
+    } catch (NumberFormatException e) {
+      // Report the error then allow user to decide
+      int cont = JOptionPane.showConfirmDialog(null, ERR_STR);
+      option = false;
 
-    public void actionPerformed(ActionEvent evt) {
+      switch(cont) {
+        case JOptionPane.YES_OPTION:
+          step1.setText("");
+          break;
+        default:
+          endProg(true);
+      }
+    }
+
+    // Enable next set of buttons
+    if(option) {
+
+      but1.setEnabled(false);
+      but2.setEnabled(true);
+      step2.requestFocus();
+    }
+  };
+
+  /**
+   * This ActionListener handles the second button/JTextField.
+   * It handles the user pressing the button/hitting <Enter> in the field
+   */
+  ActionListener al2 = ae -> {
+
+    boolean option = true;
+    try {
+
+      id.grabOctave(step2.getText());
+    } catch (NumberFormatException e) {
+      // Report the error then allow user to decide
+      int cont = JOptionPane.showConfirmDialog(null, ERR_STR);
+      option = false;
+
+      switch(cont) {
+        case JOptionPane.YES_OPTION:
+          step1.setText("");
+          break;
+        default:
+          endProg(true);
+      }
+    }
+
+    // Enable next set of buttons
+    if(option) {
+
+      but2.setEnabled(false);
+      but3.setEnabled(true);
+      step3.requestFocus();
+    }
+  };
+
+  /**
+   * This ActionListener handles the third button/JTextField.
+   * It handles the user pressing the button/hitting <Enter> in the field
+   */
+  ActionListener al3 = ae -> {
+
+    boolean option = true;
+    try {
       
-      boolean option = true;
-      try {
-       
-        // Set note choice based on the passed in string
-        noteChoice = id.grabNote(step1.getText());
-      } catch (NumberFormatException e) {
-        // Report the error then allow user to decide
-        int cont = JOptionPane.showConfirmDialog(null, ERR_STR);
-        option = false;
+      intervalChoice = id.grabInterval(step3.getText());
+    } catch (NumberFormatException e) {
+      // Report the error then allow user to decide
+      int cont = JOptionPane.showConfirmDialog(null, ERR_STR);
+      option = false;
 
-        switch(cont) {
-          case JOptionPane.YES_OPTION:
-            step1.setText("");
-            break;
-          default:
-            endProg(true);
-        }
-      }
-
-      // Enable next set of buttons
-      if(option) {
-
-        but1.setEnabled(false);
-        but2.setEnabled(true);
+      switch(cont) {
+        case JOptionPane.YES_OPTION:
+          step1.setText("");
+          break;
+        default:
+          endProg(true);
       }
     }
-  }
+
+    // Enable next set of buttons
+    if(option) {
+
+      but3.setEnabled(false);
+      but4.setEnabled(true);
+      step4.requestFocus();
+    }
+  };
 
   /**
-   * This inner class handles all actions associated with the second "go" button
-   * This button is used to grab the starting octave from the user.
+   * This ActionListener handles the fourth button/JTextField.
+   * It handles the user pressing the button/hitting <Enter> in the field
    */
-  private class secondSubmitButtonHandler implements ActionListener {
+  ActionListener al4 = ae -> {
 
-    public void actionPerformed(ActionEvent evt) {
+    String toPrint;
 
-      boolean option = true;
-      try {
+    // Get user's choice of interval quality
+    qualityChoice = but4.getText();
 
-        id.grabOctave(step2.getText());
-      } catch (NumberFormatException e) {
-        // Report the error then allow user to decide
-        int cont = JOptionPane.showConfirmDialog(null, ERR_STR);
-        option = false;
+    // Create message to display
+    toPrint = id.makeInterval(noteChoice, --intervalChoice, qualityChoice, false);
 
-        switch(cont) {
-          case JOptionPane.YES_OPTION:
-            step1.setText("");
-            break;
-          default:
-            endProg(true);
-        }
-      }
+    // Display the message
+    JOptionPane.showMessageDialog(null, toPrint);
 
-      // Enable next set of buttons
-      if(option) {
-
-        but2.setEnabled(false);
-        but3.setEnabled(true);
-      }
-    }
-  }
+    // Reset the GUI
+    but4.setEnabled(false);
+    but1.setEnabled(true);
+    clearFields();
+    step1.requestFocus();
+  };
 
   /**
-   * This inner class handles all actions associated with the third "go" button
-   * This button is used to grab the interval choice from the user.
+   * This small ActionListener handles the exit button being pressed.
    */
-  private class thirdSubmitButtonHandler implements ActionListener {
-
-    public void actionPerformed(ActionEvent evt) {
-
-      try {
-        
-        intervalChoice = id.grabInterval(step3.getText());
-      } catch (NumberFormatException e) {
-        // Report the error then allow user to decide
-        int cont = JOptionPane.showConfirmDialog(null, ERR_STR);
-        option = false;
-
-        switch(cont) {
-          case JOptionPane.YES_OPTION:
-            step1.setText("");
-            break;
-          default:
-            endProg(true);
-        }
-      }
-
-      // Enable next set of buttons
-      if(option) {
-
-        but3.setEnabled(false);
-        but4.setEnabled(true);
-      }
-    }
-  }
-
-  /**
-   * This inner class handles all actions associated with the fourth "go" button
-   * This button is used to grab the user's choice of interval, as well as to
-   * print out the message, play out the note, and reset the GUI back to the
-   * starting configuration.
-   */
-  private class fourthSubmitButtonHandler implements ActionListener {
-
-    public void actionPerformed(ActionEvent evt) {
-
-      String toPrint;
-
-      // Get user's choice of interval quality
-      qualityChoice = but4.getText();
-
-      // Create message to display
-      toPrint = id.makeInterval(noteChoice, --intervalChoice, qualityChoice, false);
-
-      // Display the message
-      JOptionPane.showMessageDialog(null, toPrint);
-
-      // Reset the GUI
-      but4.setEnabled(false);
-      but1.setEnabled(true);
-      clearFields();
-    }
-  }
-
-  /**
-   * This inner class handles all actions associated with the "exit" button
-   */
-  private class exitButtonHandler implements ActionListener {
-
-    public void actionPerformed(ActionEvent evt) {
-      endProg(false);
-    }
-  }
+  ActionListener exitB = ae -> {
+    endProg(false);
+  };
 
   /**
    * This helper method loops through the JTextFields array and sets all of

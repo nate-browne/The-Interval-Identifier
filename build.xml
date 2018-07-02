@@ -27,7 +27,7 @@
 
   <!--Compile the Java code and place it in the build directory-->
   <target name="comp" depends="init" description="compiles java source code">
-    <javac srcdir="${source.dir}" destdir="${build.dir}">
+    <javac includeantruntime="false" srcdir="${source.dir}" destdir="${build.dir}">
       <classpath>
         <pathelement path="./src/jfugue.jar"/>
       </classpath>
