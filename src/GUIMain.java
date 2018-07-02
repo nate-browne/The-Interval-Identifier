@@ -263,7 +263,7 @@ public class GUIMain extends JFrame {
     String toPrint;
 
     // Get user's choice of interval quality
-    qualityChoice = but4.getText();
+    qualityChoice = step4.getText();
 
     // Create message to display
     toPrint = id.makeInterval(noteChoice, --intervalChoice, qualityChoice, false);
