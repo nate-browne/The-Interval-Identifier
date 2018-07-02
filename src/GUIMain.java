@@ -200,8 +200,8 @@ public class GUIMain extends JFrame {
       // Enable next set of buttons
       if(option) {
 
-        but1.setEnabled(false);
-        but2.setEnabled(true);
+        but2.setEnabled(false);
+        but3.setEnabled(true);
       }
     }
   }
@@ -234,8 +234,8 @@ public class GUIMain extends JFrame {
       // Enable next set of buttons
       if(option) {
 
-        but1.setEnabled(false);
-        but2.setEnabled(true);
+        but3.setEnabled(false);
+        but4.setEnabled(true);
       }
     }
   }
