@@ -205,7 +205,7 @@ public class GUIMain extends JFrame {
 
       switch(cont) {
         case JOptionPane.YES_OPTION:
-          step1.setText("");
+          step2.setText("");
           break;
         default:
           endProg(true);
@@ -238,7 +238,7 @@ public class GUIMain extends JFrame {
 
       switch(cont) {
         case JOptionPane.YES_OPTION:
-          step1.setText("");
+          step3.setText("");
           break;
         default:
           endProg(true);
