@@ -2,7 +2,7 @@
  * Author: Nate Browne
  * Version: 1.0
  * Date: 30 Jun 2018
- * Last Edited: 30 Jun 2018
+ * Last Edited: 1 Jul 2018
  * File: GUIMain.java
  * This file sets up the GUI for the Interval Identifier program
  */
@@ -19,7 +19,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JOptionPane;
 
+/**
+ * This class is the main driver for the GUI version of the program
+ */
 //@SuppressWarnings("serial")
 public class GUIMain extends JFrame {
 
@@ -33,20 +37,24 @@ public class GUIMain extends JFrame {
     "calculate. (unison = 1, 5th = 5, etc)";
   private static final String TEXT4 = "Last, enter an interval quality. " +
     "((a)ugmented, (d)iminished, (M)ajor, (m)inor.";
+  private static final int NUM_FIELDS = 4; // Number of JTextFields created
 
-  private IntervalIdentifier ID; // to create intervals
+  private IntervalIdentifier id; // to create intervals
   private JTextField step1, step2, step3, step4; // For user input
   private JLabel text1, text2, text3, text4, titleText; // To display info
+  private JTextField[] fields = new JTextField[NUM_FIELDS];
   private JPanel top1, top2, mid1, mid2, bot, mainTop, mainMid, mainBot;
   private JButton but1, but2, but3, but4, exitButton; // For user interaction
+  private int noteChoice, intervalChoice; // Entered by the user
+  private String qualityChoice;
 
   /**
-   * Constructor for the GUI. Sets up the fields of the GUI
+   * Constructor for the GUI. Sets up the components used.
    */
   public GUIMain() {
 
     // First, create the IntervalIdentifier
-    this.ID = new IntervalIdentifier();
+    this.id = new IntervalIdentifier();
 
     // Next, create all of the panels
     this.top1 = new JPanel(new FlowLayout());
@@ -90,6 +98,12 @@ public class GUIMain extends JFrame {
     this.step3 = new JTextField(20);
     this.step4 = new JTextField(20);
 
+    // initialize the fields array
+    fields[0] = this.step1;
+    fields[1] = this.step2;
+    fields[2] = this.step3;
+    fields[3] = this.step4;
+
     // First, the top panel
     this.top1.add(this.titleText);
     this.mainTop.add(this.top1, BorderLayout.CENTER);
@@ -121,24 +135,85 @@ public class GUIMain extends JFrame {
     this.add(this.mainBot, BorderLayout.SOUTH);
   }
 
+  /**
+   * This inner class handles all actions associated with the first "go" button
+   * This button is used to grab the first note from the user.
+   */
   private class firstSubmitButtonHandler implements ActionListener {
 
-    public void actionPerformed(ActionEvent evt) {}
+    public void actionPerformed(ActionEvent evt) {
+
+      try {
+       
+        // Set note choice based on the passed in string
+        noteChoice = id.grabNote(step1.getText());
+      } catch (InputMismatchException e) {
+        endProg(true);
+      }
+
+      but1.setEnabled(false);
+      but2.setEnabled(true);
+    }
   }
 
+  /**
+   * This inner class handles all actions associated with the second "go" button
+   * This button is used to grab the starting octave from the user.
+   */
   private class secondSubmitButtonHandler implements ActionListener {
 
-    public void actionPerformed(ActionEvent evt) {}
+    public void actionPerformed(ActionEvent evt) {
+
+      try {
+
+        id.grabOctave(step2.getText());
+      } catch (InputMismatchException e) {
+        endProg(true);
+      }
+
+      but2.setEnabled(false);
+      but3.setEnabled(true);
+    }
   }
 
+  /**
+   * This inner class handles all actions associated with the third "go" button
+   * This button is used to grab the interval choice from the user.
+   */
   private class thirdSubmitButtonHandler implements ActionListener {
 
-    public void actionPerformed(ActionEvent evt) {}
+    public void actionPerformed(ActionEvent evt) {
+
+      try {
+        
+        intervalChoice = id.grabInterval(step3.getText());
+      } catch (InputMismatchException e) {
+        endProg(true);
+      }
+
+      but3.setEnabled(false);
+      but4.setEnabled(true);
+    }
   }
 
+  /**
+   * This inner class handles all actions associated with the fourth "go" button
+   * This button is used to grab the user's choice of interval, as well as to
+   * print out the message, play out the note, and reset the GUI back to the
+   * starting configuration.
+   */
   private class fourthSubmitButtonHandler implements ActionListener {
 
-    public void actionPerformed(ActionEvent evt) {}
+    public void actionPerformed(ActionEvent evt) {
+      String toPrint;
+      qualityChoice = but4.getText();
+      toPrint = id.makeInterval(noteChoice, --intervalChoice, qualityChoice, false);
+      JOptionPane.showMessageDialog(null, toPrint);
+
+      but4.setEnabled(false);
+      but1.setEnabled(true);
+      clearFields();
+    }
   }
 
   /**
@@ -147,6 +222,31 @@ public class GUIMain extends JFrame {
   private class exitButtonHandler implements ActionListener {
 
     public void actionPerformed(ActionEvent evt) {
+      endProg(false);
+    }
+  }
+
+  /**
+   * This helper method loops through the JTextFields array and sets all of
+   * the fields to the empty string, effectively clearing them
+   */
+  private void clearFields() {
+    for(JTextField field : fields) {
+      field.setText("");
+    }
+  }
+
+  /**
+   * This function abstracts the end program tasks away so that other methods
+   * can call it if needed. It closes the open scanner before exiting.
+   * 
+   * @param error boolean for if the program should exit with code 1 or code 0
+   */
+  private void endProg(boolean error) {
+    id.closeScanner();
+    if(error) {
+      System.exit(1);
+    } else {
       System.exit(0);
     }
   }

@@ -12,7 +12,7 @@ import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 
 /**
- * Main driver for the program.
+ * Main driver for the terminal based edition of the program.
  */
 public class TextMain {
 
@@ -41,7 +41,7 @@ public class TextMain {
         String qualityChoice = id.grabQuality();
 
         // Create the interval
-        id.makeInterval(noteChoice, --intervalChoice, qualityChoice);
+        id.makeInterval(noteChoice, --intervalChoice, qualityChoice, true);
 
       // Handle user typing a string for a number
       } catch(InputMismatchException e) {

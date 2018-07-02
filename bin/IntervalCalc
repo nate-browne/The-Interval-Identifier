@@ -1,0 +1,3 @@
+result=`pwd | grep -c "bin"`
+if [ $result -eq 0 ]; then cd bin; fi
+java -cp ../src/jfugue.jar:. TextMain

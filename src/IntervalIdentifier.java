@@ -80,7 +80,21 @@ public class IntervalIdentifier {
   }
 
   /**
-   * This method grabs the octave that the user wants to put their base in
+   * This method grabs the user input for the desired note to use as a base. This
+   * overloaded version is the one used in the GUI version of the program.
+   * 
+   * @param opt String that the user typed from the GUI
+   * @throws NoSuchElementException when program is supposed to terminate (EOF)
+   * @throws InputMismatchException when a mismatching type is given
+   * @return the index in the array corresponding to the chosen note
+   */
+  public int grabNote(String opt) throws NoSuchElementException, InputMismatchException {
+
+    return Integer.parseInt(opt) % NOTES.length;
+  }
+
+  /**
+   * This method grabs the octave that the user wants to put their base in.
    * 
    * @throws NoSuchElementException when program is supposed to terminate (EOF)
    * @throws InputMismatchException when a mismatching type is given
@@ -90,6 +104,19 @@ public class IntervalIdentifier {
     System.out.println("Please enter in a desired starting octave.");
     System.out.print("Middle C is \"5\": ");
     this.baseNote = scan.nextInt();
+  }
+
+  /**
+   * This method grabs the octave that the user wants to put their base in. This
+   * overloaded version is the one used in the GUI version of the program.
+   * 
+   * @param opt String that the user typed from the GUI
+   * @throws NoSuchElementException when program is supposed to terminate (EOF)
+   * @throws InputMismatchException when a mismatching type is given
+   */
+  public void grabOctave(String opt) throws NoSuchElementException, InputMismatchException {
+
+    this.baseNote = Integer.parseInt(opt);
   }
 
 
@@ -125,6 +152,29 @@ public class IntervalIdentifier {
   }
 
   /**
+   * This method grabs the interval the user wants to hear. This overloaded
+   * version is called from the GUI version of the program
+   * 
+   * @param opt the option that the user typed in
+   * @throws NoSuchElementException when program is supposed to terminate (EOF)
+   * @throws InputMismatchException when a mismatching type is given
+   * @return the chosen interval
+   */
+  public int grabInterval(String opt) throws NoSuchElementException, InputMismatchException {
+
+    this.originalInterval = Integer.parseInt(opt);
+    int intervalChoice = this.originalInterval % (OCTAVE - 1);
+
+    if(intervalChoice == 0) {
+
+      intervalChoice = 7;
+    }
+
+    this.octaveCounter = this.originalInterval / OCTAVE;
+    return intervalChoice;
+  }
+
+  /**
    * This method grabs the desired interval quality from the four choices
    * 
    * @throws NoSuchElementException when program is supposed to terminate (EOF)
@@ -153,7 +203,7 @@ public class IntervalIdentifier {
    * @param quality the passed in string for quality
    * @return the corrected string to use
    */
-  public String parseQuality(int note, int interval, String quality) {
+  private String parseQuality(int note, int interval, String quality) {
 
     String created;
 
@@ -229,7 +279,7 @@ public class IntervalIdentifier {
    * 
    * @param interval the interval to parse
    */
-  public void parseInterval(int note, int interval) {
+  private void parseInterval(int note, int interval) {
 
     // Figure out which interval to create
     switch(interval) {
@@ -274,11 +324,14 @@ public class IntervalIdentifier {
    * @param note base note of interval grabbed from main.
    * @param interval desired interval to create grabbed from main.
    * @param quality desired quality of created interval
+   * @param opt whether or not to return a string for usage in the GUI
+   * @return the formatted string for the GUI, or the empty string
    */
-  public void makeInterval(int note, int interval, String quality) {
+  public String makeInterval(int note, int interval, String quality, boolean opt) {
 
     // Reset the boolean each time through this loop
     this.goUp = false;
+    String retval;
 
     // Used to correctly pitch the interval
     int newOctave = 0;
@@ -287,17 +340,29 @@ public class IntervalIdentifier {
     this.parseInterval(note, interval);
     String created = this.parseQuality(note, interval, quality);
 
-    // Report result to user
-    System.out.printf(MSG, NOTES[note], created, originalInterval, NOTES[newVal]
-      , octaveCounter);
+    // Report result to user or create the return val string
+    if(opt) {
+
+      System.out.printf(MSG, NOTES[note], created, originalInterval, NOTES[newVal]
+        , octaveCounter);
+      retval = "";
+    } else {
+      retval = String.format(MSG, NOTES[note], created, originalInterval, NOTES[newVal],
+        octaveCounter);
+    }
 
     // Play the interval back to the user
-    System.out.println("This interval sounds like this: \n");
+    if(opt) {
+
+      System.out.println("This interval sounds like this: \n");
+    }
     notePlayer.play(NOTES[note] + baseNote);
 
     // Set the value of newOctave, if needed
     newOctave = (goUp) ? baseNote + 1 : baseNote + octaveCounter;
     notePlayer.play(NOTES[newVal] + newOctave);
+
+    return retval;
   }
 
   /**
@@ -306,7 +371,7 @@ public class IntervalIdentifier {
    * @param starting note to use as the base
    * @return the base
    */
-  public int createUnison(int starting) {
+  private int createUnison(int starting) {
 
     return starting;
   }
@@ -317,7 +382,7 @@ public class IntervalIdentifier {
    * @param starting note to use as the base
    * @return the note a second above the base
    */
-  public int createSecond(int starting) {
+  private int createSecond(int starting) {
 
     if(starting + WHOLE_STEP >= NOTES.length) {
 
@@ -334,7 +399,7 @@ public class IntervalIdentifier {
    * @param starting note to use as the base
    * @return the note a third above the base
    */
-  public int createThird(int starting) {
+  private int createThird(int starting) {
 
     if(starting + (WHOLE_STEP * WHOLE_STEP) >= NOTES.length) {
 
@@ -351,7 +416,7 @@ public class IntervalIdentifier {
    * @param starting note to use as the base
    * @return the note a fourth above the base
    */
-  public int createFourth(int starting) {
+  private int createFourth(int starting) {
 
     if(starting + (FIFTH - WHOLE_STEP) >= NOTES.length) {
 
@@ -368,7 +433,7 @@ public class IntervalIdentifier {
    * @param starting note to use as the base
    * @return the note a fifth above the base
    */
-  public int createFifth(int starting) {
+  private int createFifth(int starting) {
 
     if(starting + FIFTH >= NOTES.length) {
 
@@ -385,7 +450,7 @@ public class IntervalIdentifier {
    * @param starting note to use as the base
    * @return the note a sixth above the base
    */
-  public int createSixth(int starting) {
+  private int createSixth(int starting) {
 
     if(starting + (FIFTH + WHOLE_STEP) >= NOTES.length) {
 
@@ -402,7 +467,7 @@ public class IntervalIdentifier {
    * @param starting note to use as the base
    * @return the note a seventh above the base
    */
-  public int createSeventh(int starting) {
+  private int createSeventh(int starting) {
 
     if(starting + (OCTAVE_INTERVAL - HALF_STEP) >= NOTES.length) {
 
