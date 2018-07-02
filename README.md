@@ -11,7 +11,7 @@ user for them to hear what it sounds like.
 
 ### Usage
 
-To use this program, you'll need to make sure that you have (ant)[https://ant.apache.org].
+To use this program, you'll need to make sure that you have [ant](https://ant.apache.org).
 You can use `ant compiletxt` and `ant compileGUI` inside of the main directory for this
 project to build the executables for you! From there, you can run them by typing
 `bin/IntervalCalc` or `bin/IntervalCalcGUI`.
