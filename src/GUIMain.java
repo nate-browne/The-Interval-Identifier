@@ -36,6 +36,7 @@ public class GUIMain extends JFrame {
     "calculate. (unison = 1, 5th = 5, etc)";
   private static final String TEXT4 = "Last, enter an interval quality. " +
     "((a)ugmented, (d)iminished, (M)ajor, (m)inor.";
+  private static final String ERR_STR = "Your input was invalid. Re-enter?";
   private static final int NUM_FIELDS = 4; // Number of JTextFields created
 
   private IntervalIdentifier id; // to create intervals
@@ -141,18 +142,32 @@ public class GUIMain extends JFrame {
   private class firstSubmitButtonHandler implements ActionListener {
 
     public void actionPerformed(ActionEvent evt) {
-
+      
+      boolean option = true;
       try {
        
         // Set note choice based on the passed in string
         noteChoice = id.grabNote(step1.getText());
       } catch (NumberFormatException e) {
-        endProg(true);
+        // Report the error then allow user to decide
+        int cont = JOptionPane.showConfirmDialog(null, ERR_STR);
+        option = false;
+
+        switch(cont) {
+          case JOptionPane.YES_OPTION:
+            step1.setText("");
+            break;
+          default:
+            endProg(true);
+        }
       }
 
       // Enable next set of buttons
-      but1.setEnabled(false);
-      but2.setEnabled(true);
+      if(option) {
+
+        but1.setEnabled(false);
+        but2.setEnabled(true);
+      }
     }
   }
 
@@ -164,6 +179,7 @@ public class GUIMain extends JFrame {
 
     public void actionPerformed(ActionEvent evt) {
 
+      boolean option = true;
       try {
 
         id.grabOctave(step2.getText());

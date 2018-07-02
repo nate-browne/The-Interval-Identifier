@@ -11,10 +11,12 @@ user for them to hear what it sounds like.
 
 ### Usage
 
-The program has been compiled, so all you have to do is navigate to the "bin"
-directory and type `./IntervalCalc` from any command line!
+To use this program, you'll need to make sure that you have (ant)[https://ant.apache.org].
+You can use `ant compiletxt` and `ant compileGUI` inside of the main directory for this
+project to build the executables for you! From there, you can run them by typing
+`bin/IntervalCalc` or `bin/IntervalCalcGUI`.
 
-I'm working on a GUI version that will be more convenient to use, so stay tuned.
+I'll be creating a precompiled executable .jar file soon, so stay tuned!
 
 ### Contact
 Email <natebrowne@outlook.com> with any suggestions, bugs, or ideas for the next
