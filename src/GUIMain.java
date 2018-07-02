@@ -11,8 +11,7 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.util.InputMismatchException;
-import java.util.NoSuchElementException;
+import java.lang.NumberFormatException;
 import javax.swing.JTextField;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -147,10 +146,11 @@ public class GUIMain extends JFrame {
        
         // Set note choice based on the passed in string
         noteChoice = id.grabNote(step1.getText());
-      } catch (InputMismatchException e) {
+      } catch (NumberFormatException e) {
         endProg(true);
       }
 
+      // Enable next set of buttons
       but1.setEnabled(false);
       but2.setEnabled(true);
     }
@@ -167,10 +167,11 @@ public class GUIMain extends JFrame {
       try {
 
         id.grabOctave(step2.getText());
-      } catch (InputMismatchException e) {
+      } catch (NumberFormatException e) {
         endProg(true);
       }
 
+      // Enable next set of buttons
       but2.setEnabled(false);
       but3.setEnabled(true);
     }
@@ -187,10 +188,11 @@ public class GUIMain extends JFrame {
       try {
         
         intervalChoice = id.grabInterval(step3.getText());
-      } catch (InputMismatchException e) {
+      } catch (NumberFormatException e) {
         endProg(true);
       }
 
+      // Enable next set of buttons
       but3.setEnabled(false);
       but4.setEnabled(true);
     }
@@ -205,11 +207,19 @@ public class GUIMain extends JFrame {
   private class fourthSubmitButtonHandler implements ActionListener {
 
     public void actionPerformed(ActionEvent evt) {
+
       String toPrint;
+
+      // Get user's choice of interval quality
       qualityChoice = but4.getText();
+
+      // Create message to display
       toPrint = id.makeInterval(noteChoice, --intervalChoice, qualityChoice, false);
+
+      // Display the message
       JOptionPane.showMessageDialog(null, toPrint);
 
+      // Reset the GUI
       but4.setEnabled(false);
       but1.setEnabled(true);
       clearFields();

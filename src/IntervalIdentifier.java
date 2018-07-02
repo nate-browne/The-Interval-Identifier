@@ -84,11 +84,10 @@ public class IntervalIdentifier {
    * overloaded version is the one used in the GUI version of the program.
    * 
    * @param opt String that the user typed from the GUI
-   * @throws NoSuchElementException when program is supposed to terminate (EOF)
-   * @throws InputMismatchException when a mismatching type is given
+   * @throws NumberFormatException when a mismatching type is given
    * @return the index in the array corresponding to the chosen note
    */
-  public int grabNote(String opt) throws NoSuchElementException, InputMismatchException {
+  public int grabNote(String opt) throws NumberFormatException {
 
     return Integer.parseInt(opt) % NOTES.length;
   }
@@ -111,10 +110,9 @@ public class IntervalIdentifier {
    * overloaded version is the one used in the GUI version of the program.
    * 
    * @param opt String that the user typed from the GUI
-   * @throws NoSuchElementException when program is supposed to terminate (EOF)
-   * @throws InputMismatchException when a mismatching type is given
+   * @throws NumberFormatException when a mismatching type is given
    */
-  public void grabOctave(String opt) throws NoSuchElementException, InputMismatchException {
+  public void grabOctave(String opt) throws NumberFormatException {
 
     this.baseNote = Integer.parseInt(opt);
   }
@@ -156,11 +154,10 @@ public class IntervalIdentifier {
    * version is called from the GUI version of the program
    * 
    * @param opt the option that the user typed in
-   * @throws NoSuchElementException when program is supposed to terminate (EOF)
-   * @throws InputMismatchException when a mismatching type is given
+   * @throws NumberFormatException when a mismatching type is given
    * @return the chosen interval
    */
-  public int grabInterval(String opt) throws NoSuchElementException, InputMismatchException {
+  public int grabInterval(String opt) throws NumberFormatException {
 
     this.originalInterval = Integer.parseInt(opt);
     int intervalChoice = this.originalInterval % (OCTAVE - 1);
