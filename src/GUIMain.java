@@ -184,12 +184,25 @@ public class GUIMain extends JFrame {
 
         id.grabOctave(step2.getText());
       } catch (NumberFormatException e) {
-        endProg(true);
+        // Report the error then allow user to decide
+        int cont = JOptionPane.showConfirmDialog(null, ERR_STR);
+        option = false;
+
+        switch(cont) {
+          case JOptionPane.YES_OPTION:
+            step1.setText("");
+            break;
+          default:
+            endProg(true);
+        }
       }
 
       // Enable next set of buttons
-      but2.setEnabled(false);
-      but3.setEnabled(true);
+      if(option) {
+
+        but1.setEnabled(false);
+        but2.setEnabled(true);
+      }
     }
   }
 
@@ -205,12 +218,25 @@ public class GUIMain extends JFrame {
         
         intervalChoice = id.grabInterval(step3.getText());
       } catch (NumberFormatException e) {
-        endProg(true);
+        // Report the error then allow user to decide
+        int cont = JOptionPane.showConfirmDialog(null, ERR_STR);
+        option = false;
+
+        switch(cont) {
+          case JOptionPane.YES_OPTION:
+            step1.setText("");
+            break;
+          default:
+            endProg(true);
+        }
       }
 
       // Enable next set of buttons
-      but3.setEnabled(false);
-      but4.setEnabled(true);
+      if(option) {
+
+        but1.setEnabled(false);
+        but2.setEnabled(true);
+      }
     }
   }
 
