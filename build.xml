@@ -13,6 +13,7 @@
 
   <!--Create an executable-->
   <target name="compiletxt" depends="comp" description="creates executable">
+    <echo message="Creating terminal executable"/>
     <exec executable="/bin/bash">
       <arg value="./createtxt.sh"/>
     </exec>
@@ -20,8 +21,20 @@
 
   <!--Create GUI executable-->
   <target name="compileGUI" depends="comp" description="creates GUI executable">
+    <echo message="Creating GUI executable"/>
     <exec executable="/bin/bash">
       <arg value="./creategui.sh"/>
+    </exec>
+  </target>
+
+  <!--Create both executables-->
+  <target name="compileall" depends="comp" description="compiles both executables">
+    <echo message="Creating both executables"/>
+    <exec executable="/bin/bash">
+      <arg value="./creategui.sh"/>
+    </exec>
+    <exec executable="/bin/bash">
+      <arg value="./createtxt.sh"/>
     </exec>
   </target>
 
@@ -41,6 +54,7 @@
 
   <!--Cleans up by deleting build and doc directories-->
   <target name="clean" description="Cleans up">
+    <echo message="Cleaning up..."/>
     <delete dir="${build.dir}"/>
     <delete dir="${doc.dir}"/>
     <delete>

@@ -318,7 +318,7 @@ public class GUIMain extends JFrame {
   public static void main(String[] args) {
     GUIMain gg = new GUIMain();
     gg.setLocation(30, 50);
-    gg.setSize(1200, 1000);
+    gg.setSize(850, 800);
     gg.setVisible(true);
   }
 }
