@@ -257,11 +257,6 @@ public class IntervalIdentifier {
 
       // Major interval
       case "M":
-
-        created = "major";
-        break;
-
-      // Treat everything else as major as well
       default:
 
         created = "major";
